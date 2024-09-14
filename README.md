@@ -17,7 +17,7 @@ The Matchmaking Service is a robust, scalable backend solution designed to power
 ## Technical Stack
 
 - **Backend**: Go 1.23.1
-- **Database**: PostgreSQL 13+
+- **Database**: PostgreSQL 16+
 - **ORM**: GORM
 - **API Framework**: Gin
 - **Migration Tool**: golang-migrate
@@ -75,10 +75,33 @@ curl -X GET "http://localhost:8080/api/match/recommendations?user_id=1&page=1&pa
  },
  // ... more user objects
 ]
+```
 
 ## RUN
+To run the containerized app:-
 ```
 docker-compose up
+```
+
+## Populate Data
+
+```
+migrate create -ext sql -dir db/migrations -seq insert_sample_data
+```
+This will create two new files in your db/migrations directory:
+NNNNNN_insert_sample_data.up.sql
+NNNNNN_insert_sample_data.down.sql
+
+OPEN THE SQL file and add the necessary SQL statements for adding data and deleting data in the up and down files respectively.
+
+To populate data, run:-
+```
+make migrate-up
+```
+
+To delete data, run:-
+```
+make migrate-down
 ```
 
 ## TODO
